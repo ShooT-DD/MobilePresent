@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MeApp.Views.Home">
+
+    <Grid Padding="25" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <CollectionView x:Name="presentList" ItemsSource="{Binding Presents}" SelectionMode="Single"
+                        SelectedItem="{Binding SelectedPresent}" VerticalScrollBarVisibility="Never"
+                        SelectionChanged="OnCollectionViewSelectionChanged"
+                        SelectionChangedCommand="{Binding SelectionCommand}">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="5" HorizontalItemSpacing="5" Span="2"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout BackgroundColor="LightGray">
+                        <Label Padding="0, 10, 10, 0" Text="{Binding Price}" TextColor="Black" FontSize="17"
+                               VerticalOptions="End" HorizontalOptions="End"/>
+                        <Image x:Name="presentImage" Aspect="AspectFill" Source="{Binding DataFiles}"
+                               HorizontalOptions="Center" VerticalOptions="Center"/>
+                        <Label Padding="10, 0, 0, 0" Text="{Binding Name}" TextColor="Black" FontSize="21" VerticalOptions="End"
+                               HorizontalOptions="Start"/>
+                        <Label Padding="10, 0, 0, 0" Text="{Binding Description}" TextColor="Black" FontSize="15" VerticalOptions="End"
+                               HorizontalOptions="Start"/>
+                        <Grid Padding="10, 0, 0, 10" WidthRequest="60" HeightRequest="30">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <!--
+                            <Button x:Name="moreButton" Grid.Row="0" Grid.Column="0" 
+                                    Text="More" FontSize="10" HorizontalOptions="Start" 
+                                    WidthRequest="100" BackgroundColor="Gray" TextColor="White"
+                                    Clicked="moreButton_Clicked"/>
+                            -->
+                            <ImageButton x:Name="favourButton" Grid.Row="0" Grid.Column="1" 
+                                         Command="{Binding Path=BindingContext.FavourCommand, Source={x:Reference favourButton}}"
+                                         Source="favorite_heart.png" HorizontalOptions="Center"/>
+                        </Grid>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>
